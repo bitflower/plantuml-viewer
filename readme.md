@@ -2,6 +2,8 @@
 
 Uses a docker container to render PlantUML files from a HTML page.
 
+![alt text](image.png)
+
 Run:
 
 ```bash
