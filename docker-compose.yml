@@ -1,6 +1,6 @@
 services:
   plantuml-server:
-    image: plantuml/plantuml-server
+    image: plantuml/plantuml-server:tomcat
     container_name: plantuml-server-html
     ports:
       - '8080:8080'

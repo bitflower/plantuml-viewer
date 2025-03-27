@@ -6,7 +6,11 @@ app.use(express.static('public')); // serves index.html and script.js from ./pub
 
 app.get('/uml/:encoded', (req, res) => {
   const encoded = req.params.encoded;
-  const url = `http://localhost:8080/plantuml/svg/${encoded}`;
+  console.log('Requesting PlantUML image, encoded: ', encoded);
+  const url = `http://localhost:8080/svg/${encoded}`;
+
+  console.log('Fetching PlantUML image from:', url);
+
   request(url).pipe(res); // stream PlantUML image to client
 });
 
