@@ -1,11 +1,9 @@
-version: '3.8'
-
 services:
   plantuml-server:
     image: plantuml/plantuml-server
-    container_name: plantuml-server
+    container_name: plantuml-server-html
     ports:
-      - "8080:8080"
+      - '8080:8080'
     networks:
       - umlnet
 
