@@ -3,7 +3,8 @@ function renderUML() {
   const encoded = plantumlEncoder.encode(input);
 
   const baseUrl = 'http://localhost:8080/plantuml/svg/';
-  const imageUrl = baseUrl + encoded;
+  // const imageUrl = baseUrl + encoded;
+  const imageUrl = `/uml/${encoded}`;
 
   document.getElementById('umlImage').src = imageUrl;
 }
