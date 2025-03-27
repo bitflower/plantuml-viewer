@@ -1,39 +1,32 @@
-// function renderUML() {
-//   const input = document.getElementById('umlInput').value;
-//   const encoded = plantumlEncoder.encode(input);
+let debounceTimer;
 
-//   console.log('Encoded:', encoded);
-
-//   const baseUrl = 'http://localhost:8080/plantuml/svg/';
-//   // const imageUrl = baseUrl + encoded;
-//   const imageUrl = `/uml/${encoded}`;
-
-//   document.getElementById('umlImage').src = imageUrl;
-// }
-
-async function renderUML() {
+function renderUML() {
   const input = document.getElementById('umlInput').value;
   const encoded = plantumlEncoder.encode(input);
-  const imageUrl = `/uml/${encoded}`; // or 'http://localhost:8080/svg/' + encoded
+  const imageUrl = `/uml/${encoded}`; // your local proxy or server
 
-  try {
-    const response = await fetch(imageUrl);
-    if (!response.ok) throw new Error('Failed to load SVG');
-
-    const svgText = await response.text();
-    document.getElementById('umlContainer').innerHTML = svgText;
-  } catch (error) {
-    console.error('Error rendering diagram:', error);
-    document.getElementById(
-      'umlContainer'
-    ).innerHTML = `<p style="color:red;">Error loading diagram</p>`;
-  }
-
-  const container = document.querySelector('#entity_containerAlias');
-  if (container) {
-    container.style.cursor = 'pointer';
-    container.addEventListener('click', () => {
-      alert('Container clicked!');
+  fetch(imageUrl)
+    .then((res) => (res.ok ? res.text() : Promise.reject('Failed to fetch')))
+    .then((svg) => {
+      document.getElementById('umlContainer').innerHTML = svg;
+    })
+    .catch((err) => {
+      document.getElementById(
+        'umlContainer'
+      ).innerHTML = `<pre style="color:red;">${err}</pre>`;
     });
-  }
 }
+
+// ✅ Add live preview on typing with debounce
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('umlInput');
+  input.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      renderUML();
+    }, 500); // adjust delay as needed
+  });
+
+  // Initial render
+  renderUML();
+});
