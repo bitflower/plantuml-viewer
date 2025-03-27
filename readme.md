@@ -16,4 +16,6 @@ and:
 npm start
 ```
 
-Then open `http://localhost:3000` in your browser.
+Then open `http://localhost:3000` in your browser and start editing the plantuml content.
+
+Also don't forget to click the "CLICK ME" container.
