@@ -28,4 +28,12 @@ async function renderUML() {
       'umlContainer'
     ).innerHTML = `<p style="color:red;">Error loading diagram</p>`;
   }
+
+  const container = document.querySelector('#entity_containerAlias');
+  if (container) {
+    container.style.cursor = 'pointer';
+    container.addEventListener('click', () => {
+      alert('Container clicked!');
+    });
+  }
 }
